@@ -1,0 +1,31 @@
+- hosts: localhost
+  gather_facts: no
+  become: no
+
+  tasks:
+  - name: Criando LXC Proxmox
+    proxmox:
+      api_user: teste@pve
+      api_password: xxxxxxxxxxxxxxxxxxx 
+      api_host: 10.0.0.0.1 
+      vmid: 105
+      node: host
+      hostname: teste
+      pool: TESTE
+      password: xxxxxxxxxxxx 
+      ostemplate: 'local:vztmpl/centos-7-default_20171212_amd64.tar.xz'
+      netif: '{"net0":"name=eth0,hwaddr=00:00:00:00:00:00,gw=10.0.0.0,ip=10.0.0.1/24,bridge=vmbr0"}'
+      disk: 32
+      memory: 2048
+      cpus: 2
+      swap: 1024
+      state: present
+
+  - name: Subindo LXC Proxmox
+    proxmox:
+      api_user: teste@pve
+      api_password: xxxxxxxxxxxxxxxxxxx
+      api_host: 10.0.0.0.1
+      vmid: 105
+      node: host
+      state: started
